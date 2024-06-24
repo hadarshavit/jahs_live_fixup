@@ -273,10 +273,11 @@ class Benchmark:
                 f"surrogate model or the performance dataset table.")
 
         if train_config is None:
-            train_config = dict(epochs=nepochs, batch_size=256, use_grad_clipping=False,
-                                split=True, warmup_epochs=0, disable_checkpointing=True,
-                                checkpoint_interval_seconds=3600,
-                                checkpoint_interval_epochs=50)
+            train_config = dict(epochs=nepochs, batch_size=4096, use_grad_clipping=False,
+                                split=True, warmup_epochs=0, disable_checkpointing=False,
+                                checkpoint_interval_seconds=20,
+                                checkpoint_interval_epochs=1,
+                                sched_max_temp=200)
 
         basedir = (Path("/tmp") if worker_dir is None else worker_dir) / "jahs_bench"
         basedir.mkdir(exist_ok=True)

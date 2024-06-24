@@ -165,11 +165,12 @@ def run_task(basedir: Path, taskid: int, train_config: AttrDict, dataset: Datase
 
     task_metrics = AttrDict(
         utils.attrdict_factory(metrics=standard_task_metrics, template=list))
-
+    print(task_metrics)
     # The timer-based interface is necessary to synchronize the model metric logger and checkpointer later.
     tasktimer = utils.SynchroTimer()  # This timer must be set manually, but it still uses model_idx as time
     task_metric_logger = utils.MetricLogger(dir_tree=dir_tree, metrics=task_metrics,
                                             set_type=utils.MetricLogger.MetricSet.task, logger=logger, timer=tasktimer)
+    print(task_metrics)
     n_known_samples = len(task_metrics.model_idx)
     tasktimer.adjust(previous_timestamp=n_known_samples)
 
@@ -204,7 +205,7 @@ def run_task(basedir: Path, taskid: int, train_config: AttrDict, dataset: Datase
         ## Model initialization
         model.parse()
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        logger.debug(f"Training model {model_idx} on device {str(device)}")
+        logger.info(f"Training model {model_idx} on device {str(device)}")
         transfer_devices = device.type != "cpu"
         if transfer_devices:
             model = model.to(device)
@@ -214,7 +215,7 @@ def run_task(basedir: Path, taskid: int, train_config: AttrDict, dataset: Datase
             # This particular model has already been sampled once. Verify config and seed.
             assert task_metrics.global_seed[model_idx - 1] == curr_global_seed, \
                 f"There is a mismatch between the previously registered global seed used for evaluating the " \
-                f"model index {model_idx} and the newly generated seed {curr_global_seed}"
+                f"model index {model_idx} ({task_metrics.global_seed[model_idx - 1]}) and the newly generated seed {curr_global_seed}"
             if not task_metrics.model_config[model_idx - 1] == model_config:
                 f"Task {taskid}, model {model_idx}: Model config generation mismatch. Old model config: " \
                 f"{task_metrics.model_config[model_idx - 1]}. Newly generated config: {model_config}"

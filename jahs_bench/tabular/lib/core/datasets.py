@@ -81,7 +81,7 @@ def get_dataloaders(dataset: constants.Datasets, batch_size: int, cutout: int = 
         test_data,
         batch_size=batch_size,
         shuffle=False,
-        num_workers=0,
+        num_workers=6,
         pin_memory=True,
     )
 
@@ -101,14 +101,14 @@ def get_dataloaders(dataset: constants.Datasets, batch_size: int, cutout: int = 
             train_data,
             batch_size=batch_size,
             sampler=torch.utils.data.sampler.SubsetRandomSampler(split_info.train),
-            num_workers=0,
+            num_workers=6,
             pin_memory=True,
         )
         valid_loader = torch.utils.data.DataLoader(
             valid_data,
             batch_size=batch_size,
             sampler=torch.utils.data.sampler.SubsetRandomSampler(split_info.valid),
-            num_workers=0,
+            num_workers=6,
             pin_memory=True,
         )
         loaders["train"] = train_loader
@@ -119,7 +119,7 @@ def get_dataloaders(dataset: constants.Datasets, batch_size: int, cutout: int = 
             train_data,
             batch_size=batch_size,
             shuffle=True,
-            num_workers=0,
+            num_workers=6,
             pin_memory=True,
         )
         loaders["train"] = train_loader

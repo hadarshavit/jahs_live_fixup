@@ -49,10 +49,10 @@ scikit-learn = "~1.0.2"
 yacs = "~0.1.8"
 requests = "^2.28.0"
 pyyaml = "^6.0"
-torch = {version = "^1.10", optional = true}
+# torch = {version = "^1.10", optional = true}
 networkx = {version = "^2.6", optional = true}
 grakel = {version = "~0.1", optional = true}
-torchvision = {version = "~0.11", optional = true}
+# torchvision = {version = "^0.11", optional = true}
 fvcore = {version = "~0.1", optional = true}
 # icgen = { git = "https://github.com/automl/ICGen.git", rev="c04bf220f24fd475906225ca2c9176949cd6f129", optional=true}
 tensorboard = {version = "^2.6", optional = true}
