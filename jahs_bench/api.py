@@ -274,9 +274,9 @@ class Benchmark:
 
         if train_config is None:
             train_config = dict(epochs=nepochs, batch_size=4096, use_grad_clipping=False,
-                                split=True, warmup_epochs=0, disable_checkpointing=False,
-                                checkpoint_interval_seconds=20,
-                                checkpoint_interval_epochs=1,
+                                split=True, warmup_epochs=0, disable_checkpointing=True,
+                                checkpoint_interval_seconds=None,
+                                checkpoint_interval_epochs=10,
                                 sched_max_temp=200)
 
         basedir = (Path("/tmp") if worker_dir is None else worker_dir) / "jahs_bench"
